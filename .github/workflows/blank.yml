@@ -34,7 +34,7 @@ jobs:
         su user -c "makepkg -s --noconfirm"
 
     - name: Create artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3.5.2
       with:
         name: mesa-git-package
         path: mesa-git/pkg/
