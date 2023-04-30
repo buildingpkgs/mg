@@ -23,9 +23,9 @@ jobs:
 
     - name: Build Mesa Git
       run: |
-        cd mesa-git
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
+        cd mesa-git
         makepkg -s --noconfirm
 
     - name: Create artifact
