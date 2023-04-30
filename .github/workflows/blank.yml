@@ -1,26 +1,33 @@
-name: mesa-git
+name: Build and package Mesa Git
 
 on:
+  push:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-package-mesa-git:
     runs-on: ubuntu-latest
-    container: archlinux:latest
+
+    container:
+      image: archlinux/base
 
     steps:
-      - name: clone
-      - uses: actions/checkout@v3.5.2
-      - run: git clone https://aur.archlinux.org/mesa-git.git
-      - name: Compile
-        run: |
-          pacman -Syu --noconfirm base-devel
-          useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-          cd mesa-git
-          su user -c "yes|PKGDEST=/tmp/wine-tkg makepkg --noconfirm -s"
+    - name: Update system and install build dependencies
+      run: |
+        pacman -Syu --noconfirm
+        pacman -S --noconfirm git base-devel mesa cmake
 
-      - name: Archive the artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: mesa-git
-          path: /tmp/mesa-git
+    - name: Clone Mesa Git repository
+      run: git clone https://aur.archlinux.org/mesa-git.git
+
+    - name: Build Mesa Git
+      run: |
+        cd mesa-git
+        makepkg -si --noconfirm
+
+    - name: Create artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: mesa-git-package
+        path: mesa-git/pkg/
