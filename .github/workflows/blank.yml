@@ -16,7 +16,7 @@ jobs:
     - name: Update system and install build dependencies
       run: |
         pacman -Syu --noconfirm
-        pacman -S --noconfirm git base-devel mesa cmake
+        pacman -S --noconfirm git base-devel
 
     - name: Clone Mesa Git repository
       run: git clone https://aur.archlinux.org/mesa-git.git
@@ -24,7 +24,7 @@ jobs:
     - name: Build Mesa Git
       run: |
         cd mesa-git
-        makepkg -si --noconfirm
+        makepkg -s --noconfirm
 
     - name: Create artifact
       uses: actions/upload-artifact@v2
