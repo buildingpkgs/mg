@@ -17,8 +17,6 @@ jobs:
       run: |
         pacman -Syu --noconfirm
         pacman -S --noconfirm git base-devel
-        - name: Rootless Docker
-        uses: ScribeMD/rootless-docker@0.2.2
 
     - name: Clone Mesa Git repository
       run: git clone https://aur.archlinux.org/mesa-git.git
@@ -26,6 +24,8 @@ jobs:
     - name: Build Mesa Git
       run: |
         cd mesa-git
+        useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+        chown user -R .
         makepkg -s --noconfirm
 
     - name: Create artifact
