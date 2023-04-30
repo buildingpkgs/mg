@@ -11,6 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.5.2
       - name: Compile
+      - repository: https://aur.archlinux.org/mesa-git.git
         run: |
           pacman -Syu --noconfirm base-devel sudo
           git clone https://aur.archlinux.org/mesa-git.git
