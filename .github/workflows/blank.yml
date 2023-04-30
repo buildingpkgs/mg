@@ -9,13 +9,11 @@ jobs:
     container: archlinux:latest
 
     steps:
-        - name: cloning
-        - uses: actions/checkout@v3.5.2
-          with:
-        repository: https://aur.archlinux.org/mesa-git.git
       - uses: actions/checkout@v3.5.2
       - name: Compile
         run: |
+                 with:
+        repository: https://aur.archlinux.org/mesa-git.git
           pacman -Syu --noconfirm base-devel
           useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           cd mesa-git
