@@ -19,8 +19,9 @@ jobs:
         pacman -S --noconfirm git base-devel
 
     - name: Clone Mesa and directx-headers
-      run: git clone https://aur.archlinux.org/mesa-git.git
-           git clone https://aur.archlinux.org/directx-headers-git.git
+      run: |
+        git clone https://aur.archlinux.org/mesa-git.git
+        git clone https://aur.archlinux.org/directx-headers-git.git
 
     - name: Build Mesa Git
       run: |
