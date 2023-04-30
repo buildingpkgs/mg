@@ -18,13 +18,17 @@ jobs:
         pacman -Syu --noconfirm
         pacman -S --noconfirm git base-devel
 
-    - name: Clone Mesa Git repository
+    - name: Clone Mesa and directx-headers
       run: git clone https://aur.archlinux.org/mesa-git.git
+           git clone https://aur.archlinux.org/directx-headers-git.git
 
     - name: Build Mesa Git
       run: |
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
+        cd directx-headers-git
+        su user -c "makepkg -si --noconfirm"
+        cd ..
         cd mesa-git
         su user -c "makepkg -s --noconfirm"
 
