@@ -1,0 +1,25 @@
+name: mesa-git
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - name: Compile
+        run: |
+          pacman -Syu --noconfirm base-devel
+          git clone https://aur.archlinux.org/mesa-git.git
+          useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          cd mesa-git
+          su user -c "yes|PKGDEST=/tmp/wine-tkg makepkg --noconfirm -s"
+
+      - name: Archive the artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: mesa-git
+          path: /tmp/mesa-git
