@@ -16,7 +16,7 @@ jobs:
     - name: Update system and install build dependencies
       run: |
         pacman -Syu --noconfirm
-        pacman -S --noconfirm git base-devel
+        pacman -S --noconfirm git base-devel mesa
 
     - name: Clone Mesa and directx-headers
       run: |
@@ -37,4 +37,4 @@ jobs:
       uses: actions/upload-artifact@v3.5.2
       with:
         name: mesa-git-package
-        path: mesa-git/pkg/
+        path: mesa-git/*zst
