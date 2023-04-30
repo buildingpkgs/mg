@@ -26,7 +26,7 @@ jobs:
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
         cd mesa-git
-        su user -cmakepkg -s --noconfirm
+        su user -c makepkg -s --noconfirm
 
     - name: Create artifact
       uses: actions/upload-artifact@v2
