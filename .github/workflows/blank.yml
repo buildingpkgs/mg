@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: archlinux/latest
+      image: archlinux:base
 
     steps:
     - name: Update system and install build dependencies
