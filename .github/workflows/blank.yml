@@ -23,7 +23,7 @@ jobs:
         git clone https://aur.archlinux.org/mesa-git.git
         git clone https://aur.archlinux.org/directx-headers-git.git
 
-    - name: Build Mesa Git
+    - name: Build Mesa and directx-headers
       run: |
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
@@ -34,7 +34,7 @@ jobs:
         su user -c "makepkg -s --noconfirm"
 
     - name: Create artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3.1.2
       with:
-        name: mesa-git-package
+        name: mesa-devel
         path: mesa-git/*zst
