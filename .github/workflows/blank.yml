@@ -1,4 +1,4 @@
-name: Build and package Mesa Git
+name: Build mesa-git
 
 on:
   push:
