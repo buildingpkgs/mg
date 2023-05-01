@@ -24,8 +24,8 @@ jobs:
         git clone https://aur.archlinux.org/mesa-git.git
         git clone https://aur.archlinux.org/directx-headers-git.git
         git clone https://aur.archlinux.org/llvm-minimal-git.git
-        git clone https://aur.archlinux.org/spirv-tools-git.git
         git clone https://aur.archlinux.org/spirv-headers-git.git
+        git clone https://aur.archlinux.org/spirv-tools-git.git
 
     - name: Build Mesa and directx-headers
       run: |
