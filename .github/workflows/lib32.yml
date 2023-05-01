@@ -23,8 +23,9 @@ jobs:
       run: |
         git clone https://aur.archlinux.org/lib32-mesa-git.git
         git clone https://aur.archlinux.org/directx-headers-git.git
+        git clone https://aur.archlinux.org/lib32-llvm-minimal-git.git
 
-    - name: Build Mesa and directx-headers
+    - name: Build Mesa and directx-headers and llvm-minimal
       run: |
         echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
         pacman -Syu lib32-mesa
@@ -33,11 +34,15 @@ jobs:
         cd directx-headers-git
         su user -c "makepkg -si --noconfirm"
         cd ..
+        cd lib32-llvm-minimal-git
+        su user -c "makepkg -si --noconfirm --nocheck"
+        cd ..
         cd lib32-mesa-git
-        su user -c "makepkg -s --noconfirm"
+        su user -c "env MESA_WHICH_LLVM=1 makepkg -s --noconfirm"
 
     - name: Create artifact
       uses: actions/upload-artifact@v3.1.2
       with:
         name: lib32-mesa-devel
         path: lib32-mesa-git/*zst
+              lib32-llvm-minimal-git/*zst
