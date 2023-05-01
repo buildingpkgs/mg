@@ -19,16 +19,20 @@ jobs:
         pacman -Syu --noconfirm
         pacman -S --noconfirm git base-devel mesa
 
-    - name: Clone Mesa and directx-headers
+    - name: Clone Mesa and directx-headers and llvm-minimal-git
       run: |
         git clone https://aur.archlinux.org/mesa-git.git
         git clone https://aur.archlinux.org/directx-headers-git.git
+        git clone https://aur.archlinux.org/llvm-minimal-git.git
 
     - name: Build Mesa and directx-headers
       run: |
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
         cd directx-headers-git
+        su user -c "makepkg -si --noconfirm"
+        cd ..
+        cd llvm-minimal-git
         su user -c "makepkg -si --noconfirm"
         cd ..
         cd mesa-git
@@ -39,3 +43,4 @@ jobs:
       with:
         name: mesa-devel
         path: mesa-git/*zst
+              llvm-minimal-git/*zst
