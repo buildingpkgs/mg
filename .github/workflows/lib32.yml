@@ -1,0 +1,43 @@
+name: build lib32-mesa-git
+
+on:
+  push:
+    paths:
+      - '.github/workflows/lib32.yml'
+  workflow_dispatch:
+
+jobs:
+  build-and-package-mesa-git:
+    runs-on: ubuntu-latest
+
+    container:
+      image: archlinux:base
+
+    steps:
+    - name: Update system and install build dependencies
+      run: |
+        pacman -Syu --noconfirm
+        pacman -S --noconfirm git base-devel mesa
+
+    - name: Clone Mesa and directx-headers
+      run: |
+        git clone https://aur.archlinux.org/lib32-mesa-git.git
+        git clone https://aur.archlinux.org/directx-headers-git.git
+
+    - name: Build Mesa and directx-headers
+      run: |
+        echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
+        pacman -Syu lib32-mesa
+        useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+        chown user -R .
+        cd directx-headers-git
+        su user -c "makepkg -si --noconfirm"
+        cd ..
+        cd lib32-mesa-git
+        su user -c "makepkg -s --noconfirm"
+
+    - name: Create artifact
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: lib32-mesa-devel
+        path: lib32-mesa-git/*zst
