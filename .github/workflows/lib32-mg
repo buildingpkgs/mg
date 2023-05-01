@@ -1,4 +1,4 @@
-name: Build and package Mesa Git
+name: build lib32-mesa-git
 
 on:
   push:
