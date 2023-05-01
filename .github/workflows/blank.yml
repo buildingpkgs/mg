@@ -31,7 +31,7 @@ jobs:
         su user -c "makepkg -si --noconfirm"
         cd ..
         cd mesa-git
-        su user -c "makepkg -s --noconfirm"
+        su user -c "env MESA_WHICH_LLVM=1 makepkg -s --noconfirm"
 
     - name: Create artifact
       uses: actions/upload-artifact@v3.1.2
