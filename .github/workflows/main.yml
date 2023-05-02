@@ -25,7 +25,7 @@ jobs:
       run: |
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
-        ssu user -c "sed -i 's/^#MAKEFLAGS/MAKEFLAGS/' /etc/makepkg.conf"
+        su user -c "sed -i 's/^#MAKEFLAGS/MAKEFLAGS/' /etc/makepkg.conf"
 
         cd directx-headers-git
         su user -c "makepkg -si --noconfirm"
