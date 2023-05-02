@@ -36,10 +36,10 @@ jobs:
         cd directx-headers-git
         su user -c "makepkg -si --noconfirm"
         cd ..
-        cd spirv-tools-git
+        cd spirv-headers-git
         su user -c "makepkg -si --noconfirm"
         cd ..
-        cd spirv-headers-git
+        cd spirv-tools-git
         su user -c "makepkg -si --noconfirm"
         cd ..
         cd lib32-llvm-minimal-git
