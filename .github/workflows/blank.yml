@@ -43,6 +43,7 @@ jobs:
         su user -c "makepkg -si --noconfirm"
         cd ..
   compile-llvm:
+   needs: build-and-package-mesa-dependencies
    runs-on: ubuntu-latest
 
    container:
@@ -55,6 +56,7 @@ jobs:
         su user -c "makepkg -si --noconfirm --nocheck"
         cd ..
   compile-mesa:
+   needs: compile-llvm
    runs-on: ubuntu-latest
 
    container:
