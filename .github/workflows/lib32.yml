@@ -26,6 +26,7 @@ jobs:
         git clone https://aur.archlinux.org/lib32-llvm-minimal-git.git
         git clone https://aur.archlinux.org/spirv-tools-git.git
         git clone https://aur.archlinux.org/spirv-headers-git.git
+        git clone https://aur.archlinux.org/llvm-minimal-git.git
 
     - name: Build Mesa and directx-headers and llvm-minimal
       run: |
@@ -41,6 +42,9 @@ jobs:
         cd ..
         cd spirv-tools-git
         su user -c "makepkg -si --noconfirm"
+        cd ..
+        cd llvm-minimal-git
+        su user -c "makepkg -si --noconfirm --nocheck"
         cd ..
         cd lib32-llvm-minimal-git
         su user -c "makepkg -si --noconfirm --nocheck"
