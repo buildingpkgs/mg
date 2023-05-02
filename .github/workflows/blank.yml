@@ -34,14 +34,14 @@ jobs:
         cd directx-headers-git
         su user -c "makepkg -si --noconfirm"
         cd ..
-        cd spirv-tools-git
-        su user -c "makepkg -si --noconfirm"
-        cd ..
         cd spirv-headers-git
         su user -c "makepkg -si --noconfirm"
         cd ..
-        cd llvm-minimal-git
+        cd spirv-tools-git
         su user -c "makepkg -si --noconfirm"
+        cd ..
+        cd llvm-minimal-git
+        su user -c "makepkg -si --noconfirm --nocheck"
         cd ..
         cd mesa-git
         su user -c "env MESA_WHICH_LLVM=1 makepkg -s --noconfirm"
