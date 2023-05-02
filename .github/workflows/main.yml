@@ -1,0 +1,17 @@
+name: Build mesa-git
+on:
+  push:
+    paths:
+      - '.github/workflows/main.yml'
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:base
+    steps:
+    - name: test
+      run: |
+
+        nproc
+        nproc
