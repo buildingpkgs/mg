@@ -23,9 +23,10 @@ jobs:
         git clone https://aur.archlinux.org/spirv-tools-git.git
     - name: Build Mesa and directx-headers
       run: |
+        sed -i 's/^#MAKEFLAGS/MAKEFLAGS/' /etc/makepkg.conf
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
-        su user -c "sed -i 's/^#MAKEFLAGS/MAKEFLAGS/' /etc/makepkg.conf"
+
 
         cd directx-headers-git
         su user -c "makepkg -si --noconfirm"
