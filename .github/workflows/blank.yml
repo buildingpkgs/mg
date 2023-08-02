@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-package-mesa-dependencies:
+  build-and-package-mesa-dependencies-and-mesa:
     runs-on: ubuntu-latest
 
     container:
@@ -30,27 +30,9 @@ jobs:
 
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
-  compile-llvm:
-   runs-on: ubuntu-latest
-
-   container:
-     image: archlinux:base
-     
-   steps:
-    - name: LLVM
-      run: |
         cd llvm-minimal-git
         su user -c "makepkg -si --noconfirm --nocheck"
         cd ..
-  compile-mesa:
-   runs-on: ubuntu-latest
-
-   container:
-     image: archlinux:base
-     
-   steps:
-    - name: LLVM
-      run: |
         cd mesa-git
         su user -c "env MESA_WHICH_LLVM=1 makepkg -s --noconfirm"
 
