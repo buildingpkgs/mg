@@ -17,33 +17,20 @@ jobs:
     - name: Update system and install build dependencies
       run: |
         pacman -Syu --noconfirm
-        pacman -S --noconfirm git base-devel mesa cmake python-setuptools
+        pacman -S --noconfirm git base-devel
 
-    - name: Clone Mesa and directx-headers and llvm-minimal-git and spirv-tools and spirv-headers
+    - name: Clone Mesa and llvm-minimal-git
       run: |
         git clone https://aur.archlinux.org/mesa-git.git
-        git clone https://aur.archlinux.org/directx-headers-git.git
         git clone https://aur.archlinux.org/llvm-minimal-git.git
-        git clone https://aur.archlinux.org/spirv-headers-git.git
-        git clone https://aur.archlinux.org/spirv-tools-git.git
 
-    - name: Build Mesa and directx-headers
+    - name: Build Mesa
       run: |
         sed -i 's/^#MAKEFLAGS/MAKEFLAGS/' /etc/makepkg.conf
 
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
-        cd directx-headers-git
-        su user -c "makepkg -si --noconfirm"
-        cd ..
-        cd spirv-headers-git
-        su user -c "makepkg -si --noconfirm"
-        cd ..
-        cd spirv-tools-git
-        su user -c "makepkg -si --noconfirm"
-        cd ..
   compile-llvm:
-   needs: build-and-package-mesa-dependencies
    runs-on: ubuntu-latest
 
    container:
@@ -56,7 +43,6 @@ jobs:
         su user -c "makepkg -si --noconfirm --nocheck"
         cd ..
   compile-mesa:
-   needs: compile-llvm
    runs-on: ubuntu-latest
 
    container:
