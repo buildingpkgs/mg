@@ -36,7 +36,7 @@ jobs:
         echo cd ..
         cd mesa-git
         echo su user -c "env MESA_WHICH_LLVM=1 makepkg -s --noconfirm"
-        su user -c "makepkg -si --noconfirm"
+        su user -c "makepkg -s --noconfirm"
         cd ..
         cd yay
         su user -c "makepkg -si --noconfirm"
