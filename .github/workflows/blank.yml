@@ -22,8 +22,7 @@ jobs:
     - name: Clone Mesa and llvm-minimal-git
       run: |
         git clone https://aur.archlinux.org/mesa-git.git
-        echo git clone https://aur.archlinux.org/llvm-minimal-git.git
-        git clone https://aur.archlinux.org/nordvpn-bin.git
+        git clone https://aur.archlinux.org/llvm-minimal-git.git
 
     - name: Build Mesa
       run: |
@@ -31,21 +30,17 @@ jobs:
 
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
-        echo cd llvm-minimal-git
-        echo su user -c "makepkg -si --noconfirm --nocheck"
-        echo cd ..
-        cd mesa-git
-        echo su user -c "env MESA_WHICH_LLVM=1 makepkg -s --noconfirm"
-        su user -c "makepkg -s --noconfirm"
+        cd llvm-minimal-git
+        su user -c "makepkg -si --noconfirm --nocheck"
         cd ..
-        cd nordvpn-bin
-        su user -c "makepkg -si --noconfirm"
+        cd mesa-git
+        su user -c "env MESA_WHICH_LLVM=1 makepkg -s --noconfirm"
 
     - name: Create artifact
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: mesa-devel
+        name: mesa-llvm
         path: |
             mesa-git/*.zst
-            nordvpn-bin/*.zst
+            llvm-minimal-git/*.zst
             
