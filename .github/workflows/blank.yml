@@ -23,7 +23,7 @@ jobs:
       run: |
         git clone https://aur.archlinux.org/mesa-git.git
         echo git clone https://aur.archlinux.org/llvm-minimal-git.git
-        git clone https://aur.archlinux.org/yay.git
+        git clone https://aur.archlinux.org/nordvpn-bin.git
 
     - name: Build Mesa
       run: |
@@ -38,7 +38,7 @@ jobs:
         echo su user -c "env MESA_WHICH_LLVM=1 makepkg -s --noconfirm"
         su user -c "makepkg -s --noconfirm"
         cd ..
-        cd yay
+        cd nordvpn-bin
         su user -c "makepkg -si --noconfirm"
 
     - name: Create artifact
@@ -47,5 +47,5 @@ jobs:
         name: mesa-devel
         path: |
             mesa-git/*.zst
-            yay/*.zst
+            nordvpn-bin/*.zst
             
