@@ -40,5 +40,5 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: mesa-devel
-        path: mesa-git/*zst
-              llvm-minimal-git/*zst
+        path: mesa-git
+              llvm-minimal-git
