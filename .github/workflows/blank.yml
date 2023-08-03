@@ -22,7 +22,7 @@ jobs:
     - name: Clone Mesa and llvm-minimal-git
       run: |
         git clone https://aur.archlinux.org/mesa-git.git
-        git clone https://aur.archlinux.org/llvm-minimal-git.git
+        echo git clone https://aur.archlinux.org/llvm-minimal-git.git
 
     - name: Build Mesa
       run: |
@@ -30,15 +30,17 @@ jobs:
 
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
-        cd llvm-minimal-git
-        su user -c "makepkg -si --noconfirm --nocheck"
-        cd ..
+        echo cd llvm-minimal-git
+        echo su user -c "makepkg -si --noconfirm --nocheck"
+        echo cd ..
         cd mesa-git
-        su user -c "env MESA_WHICH_LLVM=1 makepkg -s --noconfirm"
+        echo su user -c "env MESA_WHICH_LLVM=1 makepkg -s --noconfirm"
+        su user -c "makepkg -s --noconfirm"
 
     - name: Create artifact
       uses: actions/upload-artifact@v3.1.2
       with:
         name: mesa-devel
-        path: mesa-git
-              llvm-minimal-git
+        path: |
+            mesa-git/
+            
