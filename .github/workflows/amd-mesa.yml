@@ -19,9 +19,12 @@ jobs:
         pacman -Syu --noconfirm
         pacman -S --noconfirm git base-devel
 
-    - name: Clone Mesa
+    - name: Clone repo for PKGBUILD
       run: |
-
+         git clone https://github.com/buildingpkgs/mg.git
+         cd mg
+         cd .github
+         cd workflows
 
     - name: Build Mesa
       run: |
