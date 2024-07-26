@@ -1,0 +1,46 @@
+name: Build mesa-git
+
+on:
+  push:
+    paths:
+      - '.github/workflows/blank.yml'
+  workflow_dispatch:
+
+jobs:
+  build-and-package-mesa-dependencies-and-mesa:
+    runs-on: ubuntu-latest
+
+    container:
+      image: archlinux:base
+
+    steps:
+    - name: Update system and install build dependencies
+      run: |
+        pacman -Syu --noconfirm
+        pacman -S --noconfirm git base-devel
+
+    - name: Clone Mesa and llvm-minimal-git
+      run: |
+        git clone https://aur.archlinux.org/mesa-git.git
+        git clone https://aur.archlinux.org/llvm-minimal-git.git
+
+    - name: Build Mesa
+      run: |
+        sed -i 's/^#MAKEFLAGS/MAKEFLAGS/' /etc/makepkg.conf
+
+        useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+        chown user -R .
+        cd llvm-minimal-git
+        su user -c "makepkg -si --noconfirm --nocheck"
+        cd ..
+        cd mesa-git
+        su user -c "env MESA_WHICH_LLVM=1 makepkg -s --noconfirm"
+
+    - name: Create artifact
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: mesa-llvm
+        path: |
+            mesa-git/*.zst
+            llvm-minimal-git/*.zst
+            
