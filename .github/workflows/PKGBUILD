@@ -1,0 +1,166 @@
+# Maintainer: Reza Jahanbakhshi <reza.jahanbakhshi at gmail dot com
+# Contributor: Lone_Wolf <lone_wolf@klaas-de-kat.nl>
+# Contributor: Armin K. <krejzi at email dot com>
+# Contributor: Kristian Klausen <klausenbusk@hotmail.com>
+# Contributor: Egon Ashrafinia <e.ashrafinia@gmail.com>
+# Contributor: Tavian Barnes <tavianator@gmail.com>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+# Contributor: Andreas Radke <andyrtr@archlinux.org>
+# Contributor: Thomas Dziedzic < gostrc at gmail >
+# Contributor: Antti "Tera" Oja <antti.bofh@gmail.com>
+# Contributor: Diego Jose <diegoxter1006@gmail.com>
+
+pkgname=mesa-git
+pkgdesc="an open-source implementation of the OpenGL specification, git version"
+pkgver=24.2.0_devel.188712.dd171d21dd1.d41d8cd
+pkgrel=1
+arch=('x86_64')
+makedepends=('git' 'python-mako' 'xorgproto'
+              'libxml2' 'libva' 'libxrandr'
+              'wayland-protocols' 'meson' 'ninja' 'glslang' 'vulkan-icd-loader' 'libglvnd' 'python-packaging')
+depends=('libdrm' 'libxxf86vm' 'libxshmfence' 'libelf'
+         'wayland' 'lm_sensors' 'zstd' 'expat' 'gcc-libs' 'libxfixes' 'libx11' 'systemd-libs' 'libxext' 'libxcb'
+         'glibc' 'zlib' 'xcb-util-keysyms')
+optdepends=('opengl-man-pages: for the OpenGL API man pages')
+provides=('mesa' 'vulkan-radeon' 'vulkan-mesa-layers' 'libva-mesa-driver' 'vulkan-driver' 'mesa-libgl' 'opengl-driver')
+conflicts=('mesa' 'opencl-clover-mesa' 'opencl-rusticl-mesa' 'vulkan-intel' 'vulkan-radeon' 'vulkan-mesa-layers' 'libva-mesa-driver' 'mesa-vdpau' 'vulkan-swrast' 'mesa-libgl')
+url="https://www.mesa3d.org"
+license=('custom')
+source=('mesa::git+https://gitlab.freedesktop.org/mesa/mesa.git#branch=main'
+             'LICENSE'
+)
+md5sums=('SKIP'
+         '5c65a0fe315dd347e09b1f2826a1df5a')
+sha512sums=('SKIP'
+            '25da77914dded10c1f432ebcbf29941124138824ceecaf1367b3deedafaecabc082d463abcfa3d15abff59f177491472b505bcb5ba0c4a51bb6b93b4721a23c2')
+options=(!debug)
+# debug is disabled manually through meson -D flags, but it feels cleaner to also list it here.
+
+
+# NINJAFLAGS is an env var used to pass commandline options to ninja
+# NOTE: It's your responbility to validate the value of $NINJAFLAGS. If unsure, don't set it.
+
+pkgver() {
+    cd mesa
+    # git checkout 905a00f10a1ded14adde44cb015cb28da3734c16
+    # git checkout 905a00f10a1ded14adde44cb015cb28da3734c16 bad   Aug 19, 2023!!!
+    # git checkout 9eb00f612a4bedb75b4b8462eab7319edbc8fc2c good  Aug 19, 2023
+    # git checkout 40b426c8f94c7307392971e34ee14743faa661e9 good  Aug 19, 2023
+    # git checkout 176ef72ff5afbbd5c3e9dd4a96f9b0076d8a70a6 bad   Aug 19, 2023
+    # git checkout 8e4ba537a1b150c95960a8fa276d2bf498c5e39e good  Aug 19, 2023
+    # git checkout 905a00f10a1ded14adde44cb015cb28da3734c16 bad   Aug 19, 2023
+    # git checkout 8780f66c3ae1ebe850bfdbf9c2ce2585be836cfe good  Aug 19, 2023
+    # git checkout af28356de06d7b5adfa3fa87dac157021c3a68a9 good  Aug 19, 2023
+    # git checkout 798a7ef698bfafccf0d345aaca907ee8eb63b714 good  Aug 19, 2023
+    # git checkout c2d3d655b8facd8ecb0efebf1cc4cdbca6001d65 bad   Aug 19, 2023
+    # git checkout ee1132bd793d26f512d0eaab7a6fb198634968c5 bad   Aug 23, 2023
+    # git checkout f638ba4669f9d37fb3afb0ecaaabeb3cd87c6951 good  Aug 18, 2023
+    # git checkout c7fb2228e6997f165eb2d642e4582490a0af9706 good  Aug 14, 2023
+    # git checkout 92690aee954a0fef85b3779b694ba25676648f3a bad   Aug 23, 2023
+    # git checkout 87e2d5d6056c5ef1a6676a108a22b4b4feb9974b bad   Aug 23, 2023
+    # git checkout 6f189afcd579ee3c8c493972d0f5dd9351f45f49 bad   Sep 05, 2023
+    # git checkout ad6557b101da3ec1b4f7c2e0a6fb0a2ee9a4cda8 bad   Sep 05, 2023
+    # git checkout 8c8985390d02cd87cfd07c953b00ad3940064ee9 bad   Sep 12, 2023
+    # git checkout 1ddf8378cb40b1b51dcd4535c8040c130d5d124d bad   Sep 01, 2023
+    # git checkout 8361cd4c4cf7c5e63e7d1be3a7b57898e9de62bc bad   Oct 05, 2023
+    # git checkout 7bcbfae87c9039ebb01f7287403bf5666ca8d64e good  Aug 13, 2023
+
+    # FIRST BISECTING
+    # git checkout 4f047c9583a0ef3dc23017c3eb37d01aaf1d61dd good Aug 03, 2023
+    # git checkout 95431435930a8b6110f2190b9206b1d0aa50905c bad  Aug 03, 2023
+    # git checkout 84f7fb70e11fbfb1c776d5a105c977205ab1f1ee bad  Aug 03, 2023
+    # git checkout 82ee420b15585349981e1e738c56aa2aa942686a bad  Aug 09, 2023
+    # git checkout c545df7426a1e0fab3da64342ef28db72f81e1fb good  Aug 03, 2023
+    # git checkout 578e10e1571b40c86f3348f2f36e080f34d1a4ed good  Aug 01, 2023
+    # git checkout 7bcbfae87c9039ebb01f7287403bf5666ca8d64e bad  Aug 13, 2023
+    # git checkout 0a5fe1f5246db0152938a6db0da5aad310549437 minimum good  Jul 24, 2023
+    local _ver
+    _ver=$(<VERSION)
+
+    local _patchver
+    local _patchfile
+    for _patchfile in "${source[@]}"; do
+        _patchfile="${_patchfile%%::*}"
+        _patchfile="${_patchfile##*/}"
+        [[ $_patchfile = *.patch ]] || continue
+        _patchver="${_patchver}$(md5sum ${srcdir}/${_patchfile} | cut -c1-32)"
+    done
+    _patchver="$(echo -n $_patchver | md5sum | cut -c1-7)"
+
+    echo ${_ver/-/_}.$(git rev-list --count HEAD).$(git rev-parse --short HEAD).${_patchver}
+}
+
+prepare() {
+    # although removing build folder in build() function feels more natural,
+    # that interferes with the spirit of makepkg --noextract
+    if [  -d build ]; then
+        rm -rf build
+    fi
+
+    local _patchfile
+    for _patchfile in "${source[@]}"; do
+        _patchfile="${_patchfile%%::*}"
+        _patchfile="${_patchfile##*/}"
+        [[ $_patchfile = *.patch ]] || continue
+        echo "Applying patch $_patchfile..."
+        patch --directory=mesa --forward --strip=1 --input="${srcdir}/${_patchfile}"
+    done
+}
+
+build () {
+      local meson_options=(
+       -D android-libbacktrace=disabled
+       -D b_ndebug=true
+       -D b_lto=true
+       -D platforms=x11,wayland
+       -D gallium-drivers=radeonsi
+       -D vulkan-drivers=amd
+       -D vulkan-layers=device-select,overlay
+       -D dri3=enabled
+       -D egl=enabled
+       -D gallium-extra-hud=true
+       -D gallium-nine=false
+       -D gallium-omx=disabled
+       -D gallium-opencl=disabled
+       -D gallium-va=enabled
+       -D gallium-vdpau=disabled
+       -D gallium-xa=disabled
+       -D gbm=enabled
+       -D gles1=disabled
+       -D gles2=enabled
+       -D glx=dri
+       -D libunwind=disabled
+       -D llvm=disabled
+       -D lmsensors=enabled
+       -D osmesa=false
+       -D shared-glapi=enabled
+       -D microsoft-clc=disabled
+       -D valgrind=disabled
+       -D video-codecs=all
+ )
+   # Build only minimal debug info to reduce size
+  CFLAGS+=' -g1'
+  CXXFLAGS+=' -g1'
+
+  # Inject subproject packages
+  export MESON_PACKAGE_CACHE_DIR="$srcdir"
+
+  arch-meson mesa build "${meson_options[@]}"
+  meson configure build # Print config
+  meson compile -C build
+
+}
+package() {
+    DESTDIR="${pkgdir}" meson install -C build
+
+    # remove script file from /usr/bin
+    # https://gitlab.freedesktop.org/mesa/mesa/issues/2230
+    rm "${pkgdir}/usr/bin/mesa-overlay-control.py"
+    rmdir "${pkgdir}/usr/bin"
+
+    # indirect rendering attempt 2
+    _libdir=usr/lib
+    ln -sr "$pkgdir"/$_libdir/libGLX_{mesa,indirect}.so.0
+  
+    install -m644 -Dt "${pkgdir}/usr/share/licenses/${pkgname}" "${srcdir}/LICENSE"
+}
