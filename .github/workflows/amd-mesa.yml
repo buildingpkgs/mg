@@ -29,7 +29,7 @@ jobs:
 
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
-        makepkg -si
+        su user -c "makepkg -si"
 
     - name: Create artifact
       uses: actions/upload-artifact@v3.1.2
