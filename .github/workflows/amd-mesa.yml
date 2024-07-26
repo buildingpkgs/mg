@@ -22,9 +22,6 @@ jobs:
     - name: Clone repo for PKGBUILD
       run: |
          git clone https://github.com/buildingpkgs/mg.git
-         cd mg
-         cd .github
-         cd workflows
 
     - name: Build Mesa
       run: |
@@ -32,6 +29,9 @@ jobs:
 
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
+        cd mg
+        cd .github
+        cd workflows
         su user -c "makepkg -si"
 
     - name: Create artifact
