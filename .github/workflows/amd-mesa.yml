@@ -29,7 +29,6 @@ jobs:
 
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
-        cd mesa-git
         makepkg -si
 
     - name: Create artifact
