@@ -27,7 +27,7 @@ jobs:
       run: |
         sed -i 's/^#MAKEFLAGS/MAKEFLAGS/' /etc/makepkg.conf
 
-        makepkg -s --noprepare
+        su user -c "makepkg -s --noprepare"
 
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
