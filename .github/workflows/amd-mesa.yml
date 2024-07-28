@@ -27,7 +27,6 @@ jobs:
       run: |
         sed -i 's/^#MAKEFLAGS/MAKEFLAGS/' /etc/makepkg.conf
 
-        useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         cd /__w/mg/mg/mg/.github/workflows/
         su user -c "makepkg -si --noconfirm"
 
