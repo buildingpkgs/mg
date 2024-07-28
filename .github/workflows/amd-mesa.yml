@@ -30,6 +30,8 @@ jobs:
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
         cd mg
+        cd .github
+        cd workflows
         su user -c "makepkg -si --noconfirm"
 
     - name: Create artifact
