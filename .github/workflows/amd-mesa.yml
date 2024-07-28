@@ -27,11 +27,13 @@ jobs:
       run: |
         sed -i 's/^#MAKEFLAGS/MAKEFLAGS/' /etc/makepkg.conf
 
-        cd /__w/mg/mg/mg/.github/workflows/
+        useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+        chown user -R .
+        cd mg
         su user -c "makepkg -si --noconfirm"
 
     - name: Create artifact
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: mesa-llvm
         path: |
