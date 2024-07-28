@@ -26,9 +26,6 @@ jobs:
     - name: Build Mesa
       run: |
         sed -i 's/^#MAKEFLAGS/MAKEFLAGS/' /etc/makepkg.conf
-
-        su user -c "makepkg -s --noprepare"
-
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
         cd mg
