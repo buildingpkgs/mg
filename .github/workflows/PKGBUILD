@@ -12,57 +12,57 @@
 
 pkgname=mesa-git
 pkgdesc="an open-source implementation of the OpenGL specification, git version"
-pkgver=24.2.0_devel.188712.dd171d21dd1.d41d8cd
+pkgver=24.2.0_devel.188935.9d2711fcb88.d41d8cd
 pkgrel=1
 arch=('x86_64')
 makedepends=('git'
-             'python-mako' 
+             'python-mako'
              'xorgproto'
-             'libxml2' 
-             'libva' 
+             'libxml2'
+             'libva'
              'libxrandr'
-             'wayland-protocols' 
-             'meson' 
-             'ninja' 
-             'glslang' 
-             'vulkan-icd-loader' 
-             'libglvnd' 
+             'wayland-protocols'
+             'meson'
+             'ninja'
+             'glslang'
+             'vulkan-icd-loader'
+             'libglvnd'
              'python-packaging'
              'python-yaml')
-depends=('libdrm' 
-         'libxxf86vm' 
-         'libxshmfence' 
+depends=('libdrm'
+         'libxxf86vm'
+         'libxshmfence'
          'libelf'
          'wayland'
-         'lm_sensor'
-         'zstd' 
-         'expat' 
-         'gcc-libs' 
-         'libxfixes' 
-         'libx11' 
-         'systemd-libs' 
-         'libxext' 
+         'lm_sensors'
+         'zstd'
+         'expat'
+         'gcc-libs'
+         'libxfixes'
+         'libx11'
+         'systemd-libs'
+         'libxext'
          'libxcb'
-         'glibc' 
-         'zlib' 
+         'glibc'
+         'zlib'
          'xcb-util-keysyms')
 optdepends=('opengl-man-pages: for the OpenGL API man pages')
-provides=('mesa' 
-          'vulkan-radeon' 
-          'vulkan-mesa-layers' 
-          'libva-mesa-driver' 
-          'vulkan-driver' 
-          'mesa-libgl' 
+provides=('mesa'
+          'vulkan-radeon'
+          'vulkan-mesa-layers'
+          'libva-mesa-driver'
+          'vulkan-driver'
+          'mesa-libgl'
           'opengl-driver')
-conflicts=('mesa' 
-           'opencl-clover-mesa' 
-           'opencl-rusticl-mesa' 
-           'vulkan-intel' 
-           'vulkan-radeon' 
-           'vulkan-mesa-layers' 
-           'libva-mesa-driver' 
-           'mesa-vdpau' 
-           'vulkan-swrast' 
+conflicts=('mesa'
+           'opencl-clover-mesa'
+           'opencl-rusticl-mesa'
+           'vulkan-intel'
+           'vulkan-radeon'
+           'vulkan-mesa-layers'
+           'libva-mesa-driver'
+           'mesa-vdpau'
+           'vulkan-swrast'
            'mesa-libgl')
 url="https://www.mesa3d.org"
 license=('custom')
@@ -156,42 +156,30 @@ build () {
        -D gallium-drivers=radeonsi
        -D vulkan-drivers=amd
        -D vulkan-layers=device-select,overlay
-       -D dri3=enabled
-       -D egl=enabled
        -D gallium-extra-hud=true
        -D gallium-nine=false
        -D gallium-omx=disabled
        -D gallium-opencl=disabled
-       -D gallium-va=enabled
-       -D gallium-vdpau=disabled
-       -D gallium-xa=disabled
-       -D gbm=enabled
        -D gles1=disabled
-       -D gles2=enabled
        -D glx=dri
        -D libunwind=disabled
        -D llvm=disabled
-       -D lmsensors=enabled
        -D osmesa=false
-       -D shared-glapi=enabled
        -D microsoft-clc=disabled
        -D valgrind=disabled
        -D video-codecs=all
  )
-   # Build only minimal debug info to reduce size
-  CFLAGS+=' -g1'
-  CXXFLAGS+=' -g1'
 
   # Inject subproject packages
   export MESON_PACKAGE_CACHE_DIR="$srcdir"
 
   arch-meson mesa build "${meson_options[@]}"
-  meson configure build # Print config
+  meson configure build --no-pager # Print config
   meson compile -C build
 
 }
 package() {
-    DESTDIR="${pkgdir}" meson install -C build
+  meson install -C build --destdir "$srcdir/fakeinstall"
 
     # remove script file from /usr/bin
     # https://gitlab.freedesktop.org/mesa/mesa/issues/2230
