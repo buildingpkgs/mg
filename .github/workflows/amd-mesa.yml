@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/amd-mesa.yml'
+      - '.github/workflows/PKGBUILD'
   workflow_dispatch:
 
 jobs:
