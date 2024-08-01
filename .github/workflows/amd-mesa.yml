@@ -32,7 +32,7 @@ jobs:
         cd mg
         cd .github
         cd workflows
-        su user -c "makepkg -si --noconfirm"
+        su user -c "makepkg -s --noconfirm"
 
     - name: Create artifact
       uses: actions/upload-artifact@v4
