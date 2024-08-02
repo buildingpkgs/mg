@@ -84,38 +84,8 @@ options=(!debug !lto)
 
 pkgver() {
     cd mesa
-    # git checkout 905a00f10a1ded14adde44cb015cb28da3734c16
-    # git checkout 905a00f10a1ded14adde44cb015cb28da3734c16 bad   Aug 19, 2023!!!
-    # git checkout 9eb00f612a4bedb75b4b8462eab7319edbc8fc2c good  Aug 19, 2023
-    # git checkout 40b426c8f94c7307392971e34ee14743faa661e9 good  Aug 19, 2023
-    # git checkout 176ef72ff5afbbd5c3e9dd4a96f9b0076d8a70a6 bad   Aug 19, 2023
-    # git checkout 8e4ba537a1b150c95960a8fa276d2bf498c5e39e good  Aug 19, 2023
-    # git checkout 905a00f10a1ded14adde44cb015cb28da3734c16 bad   Aug 19, 2023
-    # git checkout 8780f66c3ae1ebe850bfdbf9c2ce2585be836cfe good  Aug 19, 2023
-    # git checkout af28356de06d7b5adfa3fa87dac157021c3a68a9 good  Aug 19, 2023
-    # git checkout 798a7ef698bfafccf0d345aaca907ee8eb63b714 good  Aug 19, 2023
-    # git checkout c2d3d655b8facd8ecb0efebf1cc4cdbca6001d65 bad   Aug 19, 2023
-    # git checkout ee1132bd793d26f512d0eaab7a6fb198634968c5 bad   Aug 23, 2023
-    # git checkout f638ba4669f9d37fb3afb0ecaaabeb3cd87c6951 good  Aug 18, 2023
-    # git checkout c7fb2228e6997f165eb2d642e4582490a0af9706 good  Aug 14, 2023
-    # git checkout 92690aee954a0fef85b3779b694ba25676648f3a bad   Aug 23, 2023
-    # git checkout 87e2d5d6056c5ef1a6676a108a22b4b4feb9974b bad   Aug 23, 2023
-    # git checkout 6f189afcd579ee3c8c493972d0f5dd9351f45f49 bad   Sep 05, 2023
-    # git checkout ad6557b101da3ec1b4f7c2e0a6fb0a2ee9a4cda8 bad   Sep 05, 2023
-    # git checkout 8c8985390d02cd87cfd07c953b00ad3940064ee9 bad   Sep 12, 2023
-    # git checkout 1ddf8378cb40b1b51dcd4535c8040c130d5d124d bad   Sep 01, 2023
-    # git checkout 8361cd4c4cf7c5e63e7d1be3a7b57898e9de62bc bad   Oct 05, 2023
-    # git checkout 7bcbfae87c9039ebb01f7287403bf5666ca8d64e good  Aug 13, 2023
 
-    # FIRST BISECTING
-    # git checkout 4f047c9583a0ef3dc23017c3eb37d01aaf1d61dd good Aug 03, 2023
-    # git checkout 95431435930a8b6110f2190b9206b1d0aa50905c bad  Aug 03, 2023
-    # git checkout 84f7fb70e11fbfb1c776d5a105c977205ab1f1ee bad  Aug 03, 2023
-    # git checkout 82ee420b15585349981e1e738c56aa2aa942686a bad  Aug 09, 2023
-    # git checkout c545df7426a1e0fab3da64342ef28db72f81e1fb good  Aug 03, 2023
-    # git checkout 578e10e1571b40c86f3348f2f36e080f34d1a4ed good  Aug 01, 2023
-    # git checkout 7bcbfae87c9039ebb01f7287403bf5666ca8d64e bad  Aug 13, 2023
-    # git checkout 0a5fe1f5246db0152938a6db0da5aad310549437 minimum good  Jul 24, 2023
+
     local _ver
     _ver=$(<VERSION)
 
@@ -185,7 +155,7 @@ build () {
 package() {
   meson install -C build --destdir "$pkgdir"
 
-  local libdir=usr/lib icddir=usr/share/vulkan/icd.d
+  local libdir=usr/lib
 
   cd $pkgdir
 
