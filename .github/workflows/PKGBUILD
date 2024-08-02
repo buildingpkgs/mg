@@ -153,10 +153,15 @@ package() {
 
   cd $pkgdir
 
+  local libdir=usr/lib
+
     # remove script file from /usr/bin
     # https://gitlab.freedesktop.org/mesa/mesa/issues/2230
     rm "${pkgdir}/usr/bin/mesa-overlay-control.py"
     rmdir "${pkgdir}/usr/bin"
+
+    # indirect rendering
+    ln -sr $libdir/libGLX_{mesa,indirect}.so.0
 
     install -m644 -Dt "${pkgdir}/usr/share/licenses/${pkgname}" "${srcdir}/LICENSE"
 }
