@@ -12,7 +12,7 @@
 
 pkgname=mesa-git
 pkgdesc="an open-source implementation of the OpenGL specification, git version"
-pkgver=24.3.0_devel.192894.66243e6999f.d41d8cd
+pkgver=25.0.0_devel.199579.f528c9e8f54.d41d8cd
 pkgrel=1
 arch=('x86_64')
 makedepends=('git'
@@ -27,9 +27,7 @@ makedepends=('git'
              'vulkan-icd-loader'
              'libglvnd'
              'python-packaging'
-             'python-yaml'
-             'llvm'
-             'clang')
+             'python-yaml')
 depends=('libdrm'
          'libxxf86vm'
          'libxshmfence'
@@ -44,9 +42,7 @@ depends=('libdrm'
          'systemd-libs'
          'libxext'
          'glibc'
-         'zlib'
-         'llvm-libs'
-         'clang')
+         'zlib')
 optdepends=('opengl-man-pages: for the OpenGL API man pages')
 provides=('mesa'
           'vulkan-radeon'
@@ -70,16 +66,56 @@ license=('custom')
 source=('mesa::git+https://gitlab.freedesktop.org/mesa/mesa.git#branch=main'
              'LICENSE'
 )
-md5sums=('SKIP'
-         '5c65a0fe315dd347e09b1f2826a1df5a')
 sha512sums=('SKIP'
-            '25da77914dded10c1f432ebcbf29941124138824ceecaf1367b3deedafaecabc082d463abcfa3d15abff59f177491472b505bcb5ba0c4a51bb6b93b4721a23c2')
-options=(!debug)
+            '25da77914dded10c1f432ebcbf29941124138824ceecaf1367b3deedafaecabc082d463abcfa3d15abff59f177491472b505bcb5ba0c4a51bb6b93b4721a23c2'
+)
+options=(!debug !lto)
+# debug is disabled manually through meson -D flags, but it feels cleaner to also list it here.
+
 
 pkgver() {
     cd mesa
+    # git checkout 1b42bc76daf10b968409471e5829173e97ae297c good Dec 2, 2024!!
+    # git checkout 105fcb9cfdb4fc28de99f9647ed3d370393058f0 bad Dec 2, 2024
+    # git checkout 4da1756be427a62646eeb673d350eb2b92cc8361 good Dec 2, 2024
+    # git checkout 81971118812dc101fa1285b34413d90f718c4e16 good Dec 2, 2024
+    # git checkout fd19ff0b9eb93d7bc4a5e0b2d2ae8db5a816ff56 good Dec 2, 2024
+    # git checkout fcaf0f2590098a1fcadbc585756beb415ef4221c good Dec 1, 2024
+    # git checkout 69bce622e925380e3d8ffe4533c51423a09e1c56 bad Dec 2, 2024
 
+    # SECOND BISECTING
+    # git checkout 905a00f10a1ded14adde44cb015cb28da3734c16
+    # git checkout 905a00f10a1ded14adde44cb015cb28da3734c16 bad   Aug 19, 2023!!!
+    # git checkout 9eb00f612a4bedb75b4b8462eab7319edbc8fc2c good  Aug 19, 2023
+    # git checkout 40b426c8f94c7307392971e34ee14743faa661e9 good  Aug 19, 2023
+    # git checkout 176ef72ff5afbbd5c3e9dd4a96f9b0076d8a70a6 bad   Aug 19, 2023
+    # git checkout 8e4ba537a1b150c95960a8fa276d2bf498c5e39e good  Aug 19, 2023
+    # git checkout 905a00f10a1ded14adde44cb015cb28da3734c16 bad   Aug 19, 2023
+    # git checkout 8780f66c3ae1ebe850bfdbf9c2ce2585be836cfe good  Aug 19, 2023
+    # git checkout af28356de06d7b5adfa3fa87dac157021c3a68a9 good  Aug 19, 2023
+    # git checkout 798a7ef698bfafccf0d345aaca907ee8eb63b714 good  Aug 19, 2023
+    # git checkout c2d3d655b8facd8ecb0efebf1cc4cdbca6001d65 bad   Aug 19, 2023
+    # git checkout ee1132bd793d26f512d0eaab7a6fb198634968c5 bad   Aug 23, 2023
+    # git checkout f638ba4669f9d37fb3afb0ecaaabeb3cd87c6951 good  Aug 18, 2023
+    # git checkout c7fb2228e6997f165eb2d642e4582490a0af9706 good  Aug 14, 2023
+    # git checkout 92690aee954a0fef85b3779b694ba25676648f3a bad   Aug 23, 2023
+    # git checkout 87e2d5d6056c5ef1a6676a108a22b4b4feb9974b bad   Aug 23, 2023
+    # git checkout 6f189afcd579ee3c8c493972d0f5dd9351f45f49 bad   Sep 05, 2023
+    # git checkout ad6557b101da3ec1b4f7c2e0a6fb0a2ee9a4cda8 bad   Sep 05, 2023
+    # git checkout 8c8985390d02cd87cfd07c953b00ad3940064ee9 bad   Sep 12, 2023
+    # git checkout 1ddf8378cb40b1b51dcd4535c8040c130d5d124d bad   Sep 01, 2023
+    # git checkout 8361cd4c4cf7c5e63e7d1be3a7b57898e9de62bc bad   Oct 05, 2023
+    # git checkout 7bcbfae87c9039ebb01f7287403bf5666ca8d64e good  Aug 13, 2023
 
+    # FIRST BISECTING
+    # git checkout 4f047c9583a0ef3dc23017c3eb37d01aaf1d61dd good Aug 03, 2023
+    # git checkout 95431435930a8b6110f2190b9206b1d0aa50905c bad  Aug 03, 2023
+    # git checkout 84f7fb70e11fbfb1c776d5a105c977205ab1f1ee bad  Aug 03, 2023
+    # git checkout 82ee420b15585349981e1e738c56aa2aa942686a bad  Aug 09, 2023
+    # git checkout c545df7426a1e0fab3da64342ef28db72f81e1fb good  Aug 03, 2023
+    # git checkout 578e10e1571b40c86f3348f2f36e080f34d1a4ed good  Aug 01, 2023
+    # git checkout 7bcbfae87c9039ebb01f7287403bf5666ca8d64e bad  Aug 13, 2023
+    # git checkout 0a5fe1f5246db0152938a6db0da5aad310549437 minimum good  Jul 24, 2023
     local _ver
     _ver=$(<VERSION)
 
@@ -117,9 +153,8 @@ build () {
       local meson_options=(
        -D android-libbacktrace=disabled
        -D b_ndebug=true
-       -D b_lto=true
        -D platforms=x11,wayland
-       -D gallium-drivers=radeonsi,zink
+       -D gallium-drivers=radeonsi
        -D vulkan-drivers=amd
        -D vulkan-layers=device-select,overlay
        -D gallium-extra-hud=true
@@ -134,6 +169,7 @@ build () {
        -D video-codecs=all
        -D gallium-xa=disabled
        -D gallium-vdpau=disabled
+       -D llvm=disabled
  )
 
   # Inject subproject packages
@@ -147,7 +183,7 @@ build () {
 package() {
   meson install -C build --destdir "$pkgdir"
 
-  local libdir=usr/lib
+  local libdir=usr/lib icddir=usr/share/vulkan/icd.d
 
   cd $pkgdir
 
