@@ -12,7 +12,7 @@
 
 pkgname=mesa-git
 pkgdesc="an open-source implementation of the OpenGL specification, git version"
-pkgver=25.0.0_devel.200587.15642c8ec26.d41d8cd
+pkgver=25.1.0_devel.202500.c8fd0298e42.d41d8cd
 pkgrel=1
 arch=('x86_64')
 makedepends=('git'
@@ -81,7 +81,7 @@ pkgver() {
     # git checkout 81971118812dc101fa1285b34413d90f718c4e16 good Dec 2, 2024
     # git checkout fd19ff0b9eb93d7bc4a5e0b2d2ae8db5a816ff56 good Dec 2, 2024
     # git checkout fcaf0f2590098a1fcadbc585756beb415ef4221c good Dec 1, 2024
-    # git checkout 69bce622e925380e3d8ffe4533c51423a09e1c56 bad Dec 2, 2024
+    # git checkout 69bce622e925380e3d8ffe4533c51423a09e1c56 # bad Dec 2, 2024
 
     # SECOND BISECTING
     # git checkout 905a00f10a1ded14adde44cb015cb28da3734c16
