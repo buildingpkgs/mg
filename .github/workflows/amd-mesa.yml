@@ -1,4 +1,4 @@
-name: Build mesa-git
+name: Build AMD only mesa-git
 
 on:
   push:
