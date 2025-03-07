@@ -153,7 +153,6 @@ build () {
       local meson_options=(
        -D android-libbacktrace=disabled
        -D b_ndebug=true
-       -D platforms=x11,wayland
        -D gallium-drivers=radeonsi
        -D vulkan-drivers=amd
        -D vulkan-layers=device-select,overlay
@@ -163,7 +162,6 @@ build () {
        -D gles1=disabled
        -D glx=dri
        -D libunwind=disabled
-       -D osmesa=false
        -D microsoft-clc=disabled
        -D valgrind=disabled
        -D video-codecs=all
