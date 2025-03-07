@@ -32,12 +32,12 @@ jobs:
         cd mg
         cd .github
         cd workflows
-        su user -c "makepkg -s --noconfirm"
+        su user -c "yes|PKGDEST=/tmp/mesa-git makepkg --noconfirm -s"
 
     - name: Create artifact
       uses: actions/upload-artifact@v4
       with:
-        name: mesa-llvm
+        name: mesa-amd
         path: |
-            mesa-git/*.zst
+            /tmp/mesa-git/*.zst
             
