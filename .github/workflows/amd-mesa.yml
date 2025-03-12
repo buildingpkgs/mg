@@ -29,9 +29,7 @@ jobs:
         sed -i 's/^#MAKEFLAGS/MAKEFLAGS/' /etc/makepkg.conf
         useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
-        cd mg
-        cd .github
-        cd workflows
+        cd mg/.github/workflows
         su user -c "yes|PKGDEST=/tmp/mesa-git makepkg --noconfirm -s"
 
     - name: Create artifact
