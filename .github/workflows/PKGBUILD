@@ -158,7 +158,6 @@ build () {
        -D vulkan-layers=device-select,overlay
        -D gallium-extra-hud=true
        -D gallium-nine=false
-       -D gallium-opencl=disabled
        -D gles1=disabled
        -D glx=dri
        -D libunwind=disabled
