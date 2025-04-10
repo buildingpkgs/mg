@@ -157,7 +157,6 @@ build () {
        -D vulkan-drivers=amd
        -D vulkan-layers=device-select,overlay
        -D gallium-extra-hud=true
-       -D gallium-nine=false
        -D gles1=disabled
        -D glx=dri
        -D libunwind=disabled
