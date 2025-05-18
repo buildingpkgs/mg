@@ -27,7 +27,7 @@ jobs:
     - name: Build Mesa
       run: |
         sed -i 's/^#MAKEFLAGS/MAKEFLAGS/' /etc/makepkg.conf
-        useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+        useradd user -mG wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         chown user -R .
         cd mg/.github/workflows
         su user -c "yes|PKGDEST=/tmp/mesa-git makepkg --noconfirm -s"
