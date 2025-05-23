@@ -188,5 +188,5 @@ package() {
 
     # indirect rendering
     ln -sr $libdir/libGLX_{mesa,indirect}.so.0
-    install -Dm644 $srcdir/docs/license.rst -t "$pkgdir/usr/share/licenses/$pkgname"
+    install -Dm644 $srcdir/mesa/docs/license.rst -t "$pkgdir/usr/share/licenses/$pkgname"
 }
