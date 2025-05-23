@@ -156,7 +156,7 @@ build () {
        -D b_ndebug=true
        -D gallium-drivers=radeonsi
        -D vulkan-drivers=amd
-       -D vulkan-layers=device-select,overlay,screenshot,vram-report-limit
+       -D vulkan-layers=
        -D gallium-extra-hud=true
        -D gles1=disabled
        -D glx=dri
@@ -185,11 +185,6 @@ package() {
   cd $pkgdir
 
   local libdir=usr/lib
-
-    # remove script file from /usr/bin
-    # https://gitlab.freedesktop.org/mesa/mesa/issues/2230
-    rm "${pkgdir}/usr/bin/mesa-overlay-control.py"
-    rmdir "${pkgdir}/usr/bin"
 
     # indirect rendering
     ln -sr $libdir/libGLX_{mesa,indirect}.so.0
