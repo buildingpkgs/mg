@@ -27,7 +27,8 @@ makedepends=('git'
              'vulkan-icd-loader'
              'libglvnd'
              'python-packaging'
-             'python-yaml')
+             'python-yaml'
+             'libpng')
 depends=('libdrm'
          'libxxf86vm'
          'libxshmfence'
