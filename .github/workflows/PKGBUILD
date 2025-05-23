@@ -163,7 +163,6 @@ build () {
        -D microsoft-clc=disabled
        -D valgrind=disabled
        -D video-codecs=all
-       -D gallium-xa=disabled
        -D gallium-vdpau=disabled
        -D llvm=disabled
  )
