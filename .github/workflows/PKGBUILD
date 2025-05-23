@@ -81,7 +81,7 @@ pkgver() {
     # git checkout 81971118812dc101fa1285b34413d90f718c4e16 good Dec 2, 2024
     # git checkout fd19ff0b9eb93d7bc4a5e0b2d2ae8db5a816ff56 good Dec 2, 2024
     # git checkout fcaf0f2590098a1fcadbc585756beb415ef4221c good Dec 1, 2024
-    # git checkout 69bce622e925380e3d8ffe4533c51423a09e1c56 # bad Dec 2, 2024
+    # git checkout 69bce622e925380e3d8ffe4533c51423a09e1c56 bad Dec 2, 2024
 
     # SECOND BISECTING
     # git checkout 905a00f10a1ded14adde44cb015cb28da3734c16
@@ -155,7 +155,7 @@ build () {
        -D b_ndebug=true
        -D gallium-drivers=radeonsi
        -D vulkan-drivers=amd
-       -D vulkan-layers=device-select,overlay
+       -D vulkan-layers=device-select,overlay,screenshot,vram-report-limit
        -D gallium-extra-hud=true
        -D gles1=disabled
        -D glx=dri
