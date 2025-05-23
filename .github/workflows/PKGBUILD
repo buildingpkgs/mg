@@ -41,7 +41,9 @@ depends=('libdrm'
          'systemd-libs'
          'libxext'
          'glibc'
-         'zlib')
+         'zlib'
+         'spirv-tools'
+         'libxcb')
 optdepends=('opengl-man-pages: for the OpenGL API man pages')
 provides=('mesa'
           'vulkan-radeon'
@@ -186,6 +188,5 @@ package() {
 
     # indirect rendering
     ln -sr $libdir/libGLX_{mesa,indirect}.so.0
-
-    install -m644 -Dt "${pkgdir}/usr/share/licenses/${pkgname}" "${srcdir}/LICENSE"
+    install -Dm644 $srcdir/docs/license.rst -t "$pkgdir/usr/share/licenses/$pkgname"
 }
