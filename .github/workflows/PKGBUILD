@@ -165,6 +165,7 @@ build () {
        -D video-codecs=all
        -D gallium-vdpau=disabled
        -D llvm=disabled
+       -D gallium-mediafoundation=disabled
  )
 
   # Inject subproject packages
