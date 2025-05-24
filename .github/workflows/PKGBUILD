@@ -151,23 +151,22 @@ prepare() {
 }
 
 build () {
-      local meson_options=(
-       -D android-libbacktrace=disabled
-       -D b_ndebug=true
-       -D gallium-drivers=radeonsi
-       -D vulkan-drivers=amd
-       -D vulkan-layers=
-       -D gallium-extra-hud=true
-       -D gles1=disabled
-       -D glx=dri
-       -D libunwind=disabled
-       -D microsoft-clc=disabled
-       -D valgrind=disabled
-       -D video-codecs=all
-       -D gallium-vdpau=disabled
-       -D llvm=disabled
-       -D gallium-mediafoundation=disabled
- )
+  local meson_options=(
+    -D android-libbacktrace=disabled
+    -D b_ndebug=true
+    -D gallium-drivers=radeonsi
+    -D vulkan-drivers=amd
+    -D vulkan-layers=
+    -D gallium-extra-hud=true
+    -D gles1=disabled
+    -D glx=dri
+    -D libunwind=disabled
+    -D microsoft-clc=disabled
+    -D valgrind=disabled
+    -D video-codecs=all
+    -D gallium-vdpau=disabled
+    -D llvm=disabled
+  )
 
   # Inject subproject packages
   export MESON_PACKAGE_CACHE_DIR="$srcdir"
