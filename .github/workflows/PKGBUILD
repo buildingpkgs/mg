@@ -27,7 +27,8 @@ makedepends=('git'
              'vulkan-icd-loader'
              'libglvnd'
              'python-packaging'
-             'python-yaml')
+             'python-yaml'
+             'llvm')
 depends=('libdrm'
          'libxxf86vm'
          'libxshmfence'
@@ -43,7 +44,8 @@ depends=('libdrm'
          'glibc'
          'zlib'
          'spirv-tools'
-         'libxcb')
+         'libxcb'
+         'llvm-libs')
 optdepends=('opengl-man-pages: for the OpenGL API man pages')
 provides=('mesa'
           'vulkan-radeon'
@@ -165,7 +167,6 @@ build () {
     -D valgrind=disabled
     -D video-codecs=all
     -D gallium-vdpau=disabled
-    -D amd-with-llvm=disabled
     -D gallium-mediafoundation=disabled
   )
 
