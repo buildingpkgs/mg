@@ -156,7 +156,7 @@ build () {
     -D b_ndebug=true
     -D gallium-drivers=radeonsi
     -D vulkan-drivers=amd
-    -D vulkan-layers=
+    -D vulkan-layers=anti-lag
     -D gallium-extra-hud=true
     -D gles1=disabled
     -D glx=dri
