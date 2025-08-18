@@ -11,69 +11,71 @@
 # Contributor: Diego Jose <diegoxter1006@gmail.com>
 
 pkgname=mesa-git
-pkgdesc="an open-source implementation of the OpenGL specification, git version"
+pkgdesc="3D graphics library, git version"
 pkgver=25.1.0_devel.202500.c8fd0298e42.d41d8cd
 pkgrel=1
-arch=('x86_64')
-makedepends=('git'
-             'python-mako'
-             'xorgproto'
-             'libxml2'
-             'libva'
-             'libxrandr'
-             'wayland-protocols'
-             'meson'
-             'glslang'
-             'vulkan-icd-loader'
-             'libglvnd'
-             'python-packaging'
-             'python-yaml'
-             'libdisplay-info')
-depends=('libdrm'
-         'libxxf86vm'
-         'libxshmfence'
-         'libelf'
-         'wayland'
-         'lm_sensors'
-         'zstd'
-         'expat'
-         'gcc-libs'
-         'libx11'
-         'systemd-libs'
-         'libxext'
-         'glibc'
-         'zlib'
-         'spirv-tools'
-         'libxcb')
-optdepends=('opengl-man-pages: for the OpenGL API man pages')
-provides=('mesa'
-          'vulkan-radeon'
-          'vulkan-mesa-layers'
-          'libva-mesa-driver'
-          'vulkan-driver'
-          'mesa-libgl'
-          'opengl-driver')
-conflicts=('mesa'
-           'opencl-clover-mesa'
-           'opencl-rusticl-mesa'
-           'vulkan-intel'
-           'vulkan-radeon'
-           'vulkan-mesa-layers'
-           'libva-mesa-driver'
-           'mesa-vdpau'
-           'vulkan-swrast'
-           'mesa-libgl')
-url="https://www.mesa3d.org"
-license=('MIT AND BSD-3-Clause AND SGI-B-2.0')
-source=('mesa::git+https://gitlab.freedesktop.org/mesa/mesa.git#branch=main'
-             'LICENSE'
+arch=(x86_64)
+makedepends=(
+  git
+  python-mako
+  xorgproto
+  libxml2
+  libva
+  libxrandr
+  wayland-protocols
+  meson
+  glslang
+  vulkan-icd-loader
+  libglvnd
+  python-packaging
+  python-yaml
+  libdisplay-info
 )
-sha512sums=('SKIP'
-            '25da77914dded10c1f432ebcbf29941124138824ceecaf1367b3deedafaecabc082d463abcfa3d15abff59f177491472b505bcb5ba0c4a51bb6b93b4721a23c2'
+depends=(
+  libdrm
+  libxxf86vm
+  libxshmfence
+  libelf
+  wayland
+  lm_sensors
+  zstd
+  expat
+  gcc-libs
+  libx11
+  systemd-libs
+  libxext
+  glibc
+  zlib
+  spirv-tools
+  libxcb
+)
+optdepends=("opengl-man-pages: for the OpenGL API man pages")
+provides=(
+  mesa
+  vulkan-radeon
+  libva-mesa-driver
+  vulkan-driver
+  mesa-libgl
+  opengl-driver
+)
+conflicts=(
+  mesa
+  vulkan-radeon
+  vulkan-mesa-layers
+  libva-mesa-driver
+  mesa-libgl
+)
+url="https://www.mesa3d.org"
+license=("MIT AND BSD-3-Clause AND SGI-B-2.0'")
+source=(
+  "mesa::git+https://gitlab.freedesktop.org/mesa/mesa.git#branch=main"
+  "LICENSE"
+)
+sha512sums=(
+  "SKIP"
+  "25da77914dded10c1f432ebcbf29941124138824ceecaf1367b3deedafaecabc082d463abcfa3d15abff59f177491472b505bcb5ba0c4a51bb6b93b4721a23c2"
 )
 options=(!debug)
-# debug is disabled manually through meson -D flags, but it feels cleaner to also list it here.
-
 
 pkgver() {
     cd mesa
@@ -175,20 +177,15 @@ build () {
   export MESON_PACKAGE_CACHE_DIR="$srcdir"
 
   arch-meson mesa build "${meson_options[@]}"
-  meson configure build --no-pager # Print config
   meson compile -C build
-
 }
 package() {
-  meson install -C build --destdir "$pkgdir"
+    meson install -C build --destdir "$pkgdir"
 
-  local libdir=usr/lib icddir=usr/share/vulkan/icd.d
-
-  cd $pkgdir
-
-  local libdir=usr/lib
-
+    local libdir=usr/lib
+    cd $pkgdir
     # indirect rendering
     ln -sr $libdir/libGLX_{mesa,indirect}.so.0
+    
     install -Dm644 $srcdir/mesa/docs/license.rst -t "$pkgdir/usr/share/licenses/$pkgname"
 }
