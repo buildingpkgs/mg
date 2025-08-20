@@ -29,7 +29,6 @@ makedepends=(
   libglvnd
   python-packaging
   python-yaml
-  libdisplay-info
 )
 depends=(
   libdrm
@@ -48,6 +47,7 @@ depends=(
   zlib
   spirv-tools
   libxcb
+  libdisplay-info
 )
 optdepends=("opengl-man-pages: for the OpenGL API man pages")
 provides=(
