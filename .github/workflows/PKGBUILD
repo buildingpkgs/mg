@@ -160,7 +160,6 @@ build () {
     -D gallium-drivers=radeonsi
     -D vulkan-drivers=amd
     -D vulkan-layers=anti-lag
-    -D gallium-extra-hud=true
     -D gles1=disabled
     -D glx=dri
     -D libunwind=disabled
