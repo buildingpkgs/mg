@@ -156,7 +156,7 @@ build () {
   local meson_options=(
     -D android-libbacktrace=disabled
     -D b_ndebug=true
-    -D gallium-drivers=radeonsi
+    -D gallium-drivers=radeonsi,zink
     -D vulkan-drivers=amd
     -D vulkan-layers=
     -D gles1=disabled
