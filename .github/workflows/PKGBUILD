@@ -165,7 +165,6 @@ build () {
     -D microsoft-clc=disabled
     -D valgrind=disabled
     -D video-codecs=all
-    -D gallium-vdpau=disabled
     -D llvm=disabled
     -D gallium-mediafoundation=disabled
     -D amd-use-llvm=false
