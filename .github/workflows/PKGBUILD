@@ -158,7 +158,7 @@ build () {
     -D b_ndebug=true
     -D gallium-drivers=radeonsi,zink
     -D vulkan-drivers=amd
-    -D vulkan-layers=
+    -D vulkan-layers=device-select
     -D gles1=disabled
     -D glx=dri
     -D libunwind=disabled
