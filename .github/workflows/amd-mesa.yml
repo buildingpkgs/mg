@@ -18,7 +18,7 @@ jobs:
     - name: Update system and install build dependencies
       run: |
         pacman -Syu --noconfirm git base-devel
-        pacman -U https://archive.archlinux.org/packages/l/libdisplay-info/libdisplay-info-0.3.0-1-x86_64.pkg.tar.zst
+        pacman -U --noconfirm https://archive.archlinux.org/packages/l/libdisplay-info/libdisplay-info-0.3.0-1-x86_64.pkg.tar.zst
 
     - name: Clone repo for PKGBUILD
       run: |
