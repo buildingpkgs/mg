@@ -57,14 +57,14 @@ provides=(
   vulkan-driver
   mesa-libgl
   opengl-driver
-  vulkan-mesa-device-select
+  vulkan-mesa-implicit-layers
 )
 conflicts=(
   mesa
   vulkan-radeon
   libva-mesa-driver
   mesa-libgl
-  vulkan-mesa-device-select
+  vulkan-mesa-implicit-layers
 )
 url="https://www.mesa3d.org"
 license=("MIT AND BSD-3-Clause AND SGI-B-2.0'")
@@ -160,7 +160,7 @@ build () {
     -D b_ndebug=true
     -D gallium-drivers=radeonsi,zink
     -D vulkan-drivers=amd
-    -D vulkan-layers=device-select
+    -D vulkan-layers=device-select,anti-lag
     -D gles1=disabled
     -D glx=dri
     -D libunwind=disabled
