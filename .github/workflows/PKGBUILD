@@ -39,10 +39,11 @@ depends=(
   lm_sensors
   zstd
   expat
-  gcc-libs
   libx11
   systemd-libs
   libxext
+  libgcc
+  libstdc++
   glibc
   zlib
   spirv-tools
@@ -170,6 +171,7 @@ build () {
     -D llvm=disabled
     -D gallium-mediafoundation=disabled
     -D amd-use-llvm=false
+    -D vulkan-manifest-per-architecture=false
   )
 
   # Inject subproject packages
