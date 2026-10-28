@@ -170,7 +170,7 @@ build () {
     -D video-codecs=all
     -D llvm=disabled
     -D gallium-mediafoundation=disabled
-    -D amd-use-llvm=false
+    -D amd-options=use-llvm
     -D vulkan-manifest-per-architecture=false
   )
 
