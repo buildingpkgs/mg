@@ -122,7 +122,7 @@ pkgver() {
     # git checkout 578e10e1571b40c86f3348f2f36e080f34d1a4ed good  Aug 01, 2023
     # git checkout 7bcbfae87c9039ebb01f7287403bf5666ca8d64e bad  Aug 13, 2023
     # git checkout 0a5fe1f5246db0152938a6db0da5aad310549437 minimum good  Jul 24, 2023
-    git checkout 53bdf0c6719a6cb97f6284dddab3c13c11ec06d8
+    git checkout 2639fb6a93e0f05aec34be5844ec854f4a322052
     local _ver
     _ver=$(<VERSION)
 
